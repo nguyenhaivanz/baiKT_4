@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style th:replace="/layout::css"></style>
+    <style>
+        body{
+            background-image: url('https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-powerpoint-don-gian-dep-12_045405583.jpg');
+        }
+        img {
+            image-rendering: pixelated;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<h1>Create New City</h1>
+<form id="form" th:action="@{/city/create}" method="post" th:object="${city}">
+    <label>Name:
+        <input type="text" th:field="*{name}" required>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </label>
+    <label>Area:
+        <input type="text" th:field="*{area}" required>
+        <span th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></span>
+    </label>
+
+    <label>Population:
+        <input type="text" th:field="*{population}" required>
+        <span th:if="${#fields.hasErrors('population')}" th:errors="*{population}"></span>
+    </label>
+    <label>Gdp:
+        <input type="text" th:field="*{gdp}" required>
+        <span th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}"></span>
+    </label>
+    <label>description:
+        <input type="text" th:field="*{description}" required>
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+    </label>
+
+    <label>Country:
+        <select th:field="*{country}">
+            <option th:each="c : ${country}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+        </select>
+    </label>
+    <button type="submit">Create</button>
+
+</form>
+<h4 th:class="notify" th:if="${status}">
+   <p style="color: aliceblue">"Create Successfully"</p>
+</h4>
+<a th:href="@{/city}">Back to home</a>
+<footer th:replace="/layout::footer"></footer>
+</body>
+</html>
